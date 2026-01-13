@@ -1,0 +1,18 @@
+[package]
+name = "wave-core"
+version = "0.1.0"
+edition = "2024"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+# Servo components (This is a simplified view of what Servo integration looks like)
+# In reality, Servo is often built as a standalone lib or via many sub-crates.
+# For this "Wave Engine" simulation, we will pull in the key traits.
+servo = { git = "https://github.com/servo/servo", rev = "1652433" } # Pinning a revision for stability
+log = "0.4"
+serde = { version = "1.0", features = ["derive"] }
+adblock = "0.7"
+url = "2.5" 
+uuid = { version = "1.0", features = ["v4"] }
+

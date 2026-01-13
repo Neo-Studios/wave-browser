@@ -1,0 +1,22 @@
+[workspace]
+resolver = "3"
+members = [
+    "core",
+    "common",
+    "platforms/desktop",
+    "extensions",
+]
+exclude = [
+    "platforms/android", # Android builds are typically handled via Gradle, though they may consume Rust libs
+]
+
+[workspace.package]
+version = "0.1.0"
+authors = ["Neo Studios"]
+edition = "2024"
+
+[profile.release]
+lto = true
+opt-level = 3
+codegen-units = 1
+strip = true

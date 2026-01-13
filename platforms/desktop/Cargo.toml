@@ -1,0 +1,15 @@
+[package]
+name = "wave-desktop"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+wave-core = { path = "../../core" }
+wave-common = { path = "../../common" }
+wave-extensions = { path = "../../extensions" }
+eframe = { version = "0.26", default-features = false, features = ["default_fonts", "glow"] } # Force OpenGL backend
+glow = "0.13" # Raw OpenGL bindings
+env_logger = "0.10"
+log = "0.4"
+window-vibrancy = "0.4"
+
