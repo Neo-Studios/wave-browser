@@ -1,5 +1,6 @@
 use adblock::engine::Engine;
 use adblock::lists::{FilterSet, ParseOptions};
+use adblock::request::Request;
 use serde::{Deserialize, Serialize};
 use std::sync::{Arc, Mutex};
 
@@ -49,7 +50,8 @@ impl WaveShield {
         // Check using the adblock engine
         // 'source_url' is the page making the request (e.g. "https://example.com")
         // 'url' is the request being made (e.g. "https://ads.doubleclick.net/...")
-        let check_result = engine.check_network_request(url, source_url, resource_type);
+        let request = Request::new(url, source_url, resource_type).unwrap_or_else(|_| Request::new("http://example.com", "", "").unwrap());
+        let check_result = engine.check_network_request(&request);
 
         if check_result.matched {
             return Decision::Block;
@@ -110,10 +112,4 @@ mod tests {
             _ => panic!("Should have allowed the safe url"),
         }
     }
-}
-    Image,
-    XHR,
-    Frame,
-    Stylesheet,
-    Other,
 }

@@ -1,7 +1,6 @@
 pub mod shield;
 pub mod spaces;
 
-use std::sync::Arc;
 use url::Url;
 
 /// Event types that the shell (UI) sends to the engine.

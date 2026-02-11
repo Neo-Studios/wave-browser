@@ -1,5 +1,5 @@
 use constants::WINDOW_TITLE;
-use eframe::{egui, glow};
+use eframe::egui;
 #[cfg(target_os = "windows")]
 use window_vibrancy::{apply_mica, apply_acrylic, Color};
 #[cfg(target_os = "macos")]
@@ -7,7 +7,7 @@ use window_vibrancy::{apply_vibrancy, NSVisualEffectMaterial};
 use std::sync::Arc;
 
 use wave_core::{shield::WaveShield, WaveEngine, EngineEvent, spaces::Space};
-use wave_common::theme::{Theme, CatppuccinFlavor};
+use wave_common::theme::Theme;
 
 mod constants {
     pub const WINDOW_TITLE: &str = "Wave Browser";
@@ -15,9 +15,9 @@ mod constants {
 mod render_glue;
 
 struct WaveApp {
-    shield: WaveShield,
+    _shield: WaveShield,
     engine: WaveEngine,
-    theme: Theme,
+    _theme: Theme,
     renderer: Option<render_glue::OffscreenRenderer>,
     url_input: String,
     // Spaces Logic
@@ -54,9 +54,9 @@ impl WaveApp {
         personal_space.add_panel("https://youtube.com");
 
         Self {
-            shield: WaveShield::new(),
+            _shield: WaveShield::new(),
             engine,
-            theme,
+            _theme: theme,
             renderer,
             url_input: String::from("https://example.com"),
             spaces: vec![work_space, personal_space],
@@ -66,19 +66,19 @@ impl WaveApp {
 }
 
 impl eframe::App for WaveApp {
-    fn update(&mut self, ctx: &egui::Context, frame: &mut eframe::Frame) {
-        frame.winit_window().map(|window| {
-            #[cfg(target_os = "windows")]
-            if self.theme.use_mica {
-                 let _ = apply_mica(window, None);
-            }
-            #[cfg(target_os = "macos")]
-            if self.theme.use_mica {
-                // MacOS Vibrancy (Zen Mode)
-                let _ = apply_vibrancy(window, NSVisualEffectMaterial::HudWindow, None, None)
-                    .map_err(|e| log::warn!("Failed to apply vibrancy: {:?}", e));
-            }
-        });
+    fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
+        // frame.winit_window().map(|window| {
+        //     #[cfg(target_os = "windows")]
+        //     if self.theme.use_mica {
+        //          let _ = apply_mica(window, None);
+        //     }
+        //     #[cfg(target_os = "macos")]
+        //     if self.theme.use_mica {
+        //         // MacOS Vibrancy (Zen Mode)
+        //         let _ = apply_vibrancy(window, NSVisualEffectMaterial::HudWindow, None, None)
+        //             .map_err(|e| log::warn!("Failed to apply vibrancy: {:?}", e));
+        //     }
+        // });
 
         // Sidebar
         egui::SidePanel::left("wave_sidebar")
